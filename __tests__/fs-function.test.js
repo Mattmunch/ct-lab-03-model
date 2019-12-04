@@ -1,4 +1,4 @@
-const { mkdirp } = require('../fs-functions');
+const { mkdirp, writeJSON } = require('../fs-functions');
 const fs = require('fs').promises;
 
 
@@ -11,12 +11,23 @@ describe('fs-functions', () => {
   afterAll(() => {
     return fs.rmdir('./test-files', { recursive: true });
   });
-  describe('mkdirp', () => {
-    it('makes a directory and all the parent directorites', () => {
-      return mkdirp('i/love/coding').then(() => {
-        expect(fs.mkdirp).toHaveBeenLastCalledWith('i/love/coding');
-      })  ;
-    });
+  it('can write an object to a file', () => {
+    return writeJSON('./test-files/dogs', {
+      name: 'buckwheat',
+      age: 5,
+      weight: '20 lbs'
+    })
+      .then(() => {
+        return fs.readFile('./test-files/dogs', 'utf-8');
+      })
+      .then(fileData => {
+        expect(JSON.parse(fileData)).toEqual({
+          name: 'buckwheat',
+          age: 5,
+          weight: '20 lbs'
+        });
+      });
   });
+  
 })
 ;
