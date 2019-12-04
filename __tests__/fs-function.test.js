@@ -1,4 +1,4 @@
-const { mkdirp, writeJSON } = require('../fs-functions');
+const { mkdirp, writeJSON, readJSON } = require('../fs-functions');
 const fs = require('fs').promises;
 
 
@@ -20,6 +20,16 @@ describe('fs-functions', () => {
       .then(() => {
         return fs.readFile('./test-files/dogs', 'utf-8');
       })
+      .then(fileData => {
+        expect(JSON.parse(fileData)).toEqual({
+          name: 'buckwheat',
+          age: 5,
+          weight: '20 lbs'
+        });
+      });
+  });
+  it('can read an object from a file', () => {
+    return readJSON('./test-files/dogs')
       .then(fileData => {
         expect(JSON.parse(fileData)).toEqual({
           name: 'buckwheat',

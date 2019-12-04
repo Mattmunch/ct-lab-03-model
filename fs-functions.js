@@ -4,13 +4,15 @@ const mkdirp = (path) => {
   return fs.mkdir(path, { recursive: true });
 };
 
-let fileContents = '';
-
 const writeJSON = (path, data) => {
   return fs.writeFile(path, JSON.stringify(data))
     .then(() => {
       return data;
     });
+};
+
+const readJSON = (path) => {
+  return fs.readFile(path);
 };
 
 
@@ -19,5 +21,6 @@ const writeJSON = (path, data) => {
 
 module.exports = {
   mkdirp,
-  writeJSON
+  writeJSON,
+  readJSON
 };
