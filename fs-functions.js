@@ -14,6 +14,9 @@ const writeJSON = (path, data) => {
 const readJSON = (path) => {
   return fs.readFile(path);
 };
+const readDirectoryJSON = (path) => {
+  return fs.readFile(path, { recursive: true });
+};
 
 
 
@@ -22,5 +25,6 @@ const readJSON = (path) => {
 module.exports = {
   mkdirp,
   writeJSON,
-  readJSON
+  readJSON,
+  readDirectoryJSON
 };

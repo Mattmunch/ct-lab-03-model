@@ -1,4 +1,4 @@
-const { mkdirp, writeJSON, readJSON } = require('../fs-functions');
+const { mkdirp, writeJSON, readJSON, readDirectoryJSON } = require('../fs-functions');
 const fs = require('fs').promises;
 
 
@@ -37,6 +37,9 @@ describe('fs-functions', () => {
           weight: '20 lbs'
         });
       });
+  });
+  it('can read all files in a directory as objects', () => {
+    return readDirectoryJSON('./tst'); 
   });
   
 })
